@@ -1,0 +1,26 @@
+version: '2'
+services:
+    nginx:
+        build:
+            context: nginx
+        ports:
+            - "8080:80"
+        volumes:
+            - ../www/:/var/www
+        links:
+            - php
+    php:
+        build:
+            context: php
+        volumes:
+            - ../www/:/var/www
+        links:
+            - maria
+    maria:
+        build:
+            context: maria
+        ports:
+            - "11433:1433"
+#maria db 로 변경할것
+        volumes:
+            - ./mssql/data:/var/opt/mssql/data
